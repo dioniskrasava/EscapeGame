@@ -1,12 +1,13 @@
 package com.majo.escapegame
 
+
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 
 class Enemy(var x: Float, var y: Float) {
     val radius = 30f
-    private val speed = 5f
+    private val speed = 8f
 
     fun update() {
         y += speed

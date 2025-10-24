@@ -1,5 +1,6 @@
 package com.majo.escapegame
 
+
 import android.graphics.Canvas
 import android.view.SurfaceHolder
 
@@ -15,16 +16,20 @@ class GameThread(
             var canvas: Canvas? = null
             try {
                 canvas = surfaceHolder.lockCanvas()
-                canvas?.let {
+                if (canvas != null) {
                     synchronized(surfaceHolder) {
                         gameView.update()
-                        gameView.drawGame(it) // Используем вспомогательный метод
+                        gameView.drawGame(canvas)
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             } finally {
-                canvas?.let { surfaceHolder.unlockCanvasAndPost(it) }
+                try {
+                    canvas?.let { surfaceHolder.unlockCanvasAndPost(it) }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
 
             try {
